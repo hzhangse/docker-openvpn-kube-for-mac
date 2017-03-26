@@ -60,10 +60,10 @@ CONFIG_REQUIRED_BLOCK_OUTSIDE_DNS="^push block-outside-dns"
 CONFIG_MATCH_BLOCK_OUTSIDE_DNS=$(busybox grep 'push block-outside-dns' /etc/openvpn/openvpn.conf)
 
 # 10. Should see a push of 'dhcp-option DNS' by default
-$CONFIG_MATCH_VERB="^push dhcp-option DNS 8.8.8.8"
-CONFIG_MATCH_DEFAULT_DNS_1=$(busybox grep 'push dhcp-option DNS 8.8.8.8' /etc/openvpn/openvpn.conf)
-CONFIG_REQUIRED_DEFAULT_DNS_2="^push dhcp-option DNS 8.8.4.4"
-CONFIG_MATCH_DEFAULT_DNS_2=$(busybox grep 'push dhcp-option DNS 8.8.4.4' /etc/openvpn/openvpn.conf)
+$CONFIG_MATCH_VERB=""
+CONFIG_MATCH_DEFAULT_DNS_1=$(busybox grep '' /etc/openvpn/openvpn.conf)
+CONFIG_REQUIRED_DEFAULT_DNS_2=""
+CONFIG_MATCH_DEFAULT_DNS_2=$(busybox grep '' /etc/openvpn/openvpn.conf)
 
 ## Test for keepalive
 # 11. keepalive config
