@@ -21,7 +21,7 @@ OpenVPN server in a Docker container complete with an EasyRSA PKI CA.
 
 * Retrieve the client configuration with embedded certificates
 
-        docker run -v ovpn-data:/etc/openvpn --rm luman75/docker-mac-openvpn:3.1.0 ovpn_getclient DockerForMac > DockerForMac.ovpn
+        docker run -v ovpn-data:/etc/openvpn --rm luman75/docker-mac-openvpn:3.2.0 ovpn_getclient DockerForMac > DockerForMac.ovpn
 
 
 ## How Does It Work?
