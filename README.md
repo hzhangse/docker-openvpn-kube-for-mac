@@ -8,25 +8,25 @@ OpenVPN server in a Docker container complete with an EasyRSA PKI CA.
 * Initialize the ovpn-data container that will hold the configuration files and certificates
 
         docker volume create --name ovpn-data
-        docker run -v ovpn-data:/etc/openvpn --rm luman75/docker-mac-openvpn ovpn_genconfig -u udp://localhost
-        docker run -v ovpn-data:/etc/openvpn --rm -it luman75/docker-mac-openvpn ovpn_initpki
+        docker run -v ovpn-data:/etc/openvpn --rm luman75/docker-mac-openvpn:3.0.0 ovpn_genconfig -u udp://localhost
+        docker run -v ovpn-data:/etc/openvpn --rm -it luman75/docker-mac-openvpn:3.0.0 ovpn_initpki
 
 * Start OpenVPN server process
 
-        docker run -v ovpn-data:/etc/openvpn --name docker-mac-openvpn -d -p 1194:1194/udp --cap-add=NET_ADMIN luman75/docker-mac-openvpn
+        docker run -v ovpn-data:/etc/openvpn --name docker-mac-openvpn -d -p 1194:1194/udp --cap-add=NET_ADMIN luman75/docker-mac-openvpn:3.0.0
 
 * Generate a client certificate without a passphrase
 
-        docker run -v ovpn-data:/etc/openvpn --rm -it luman75/docker-mac-openvpn easyrsa build-client-full DockerForMac nopass
+        docker run -v ovpn-data:/etc/openvpn --rm -it luman75/docker-mac-openvpn:3.0.0 easyrsa build-client-full DockerForMac nopass
 
 * Retrieve the client configuration with embedded certificates
 
-        docker run -v ovpn-data:/etc/openvpn --rm luman75/docker-mac-openvpn ovpn_getclient DockerForMac > DockerForMac.ovpn
+        docker run -v ovpn-data:/etc/openvpn --rm luman75/docker-mac-openvpn:3.0.0 ovpn_getclient DockerForMac > DockerForMac.ovpn
 
 
 ## How Does It Work?
 
-Initialize the volume container using the `luman75/docker-mac-openvpn` image with the
+Initialize the volume container using the `luman75/docker-mac-openvpn:3.0.0` image with the
 included scripts to automatically generate:
 
 - Diffie-Hellman parameters
@@ -42,11 +42,11 @@ declares that directory as a volume. It means that you can start another
 container with the `-v` argument, and access the configuration.
 The volume also holds the PKI keys and certs so that it could be backed up.
 
-To generate a client certificate, `luman75/docker-mac-openvpn` uses EasyRSA via the
+To generate a client certificate, `luman75/docker-mac-openvpn:3.0.0` uses EasyRSA via the
 `easyrsa` command in the container's path.  The `EASYRSA_*` environmental
 variables place the PKI CA under `/etc/openvpn/pki`.
 
-Conveniently, `luman75/docker-mac-openvpn` comes with a script called `ovpn_getclient`,
+Conveniently, `luman75/docker-mac-openvpn:3.0.0` comes with a script called `ovpn_getclient`,
 which dumps an inline OpenVPN client configuration file.  This single file can
 then be given to a client for access to the VPN.
 
