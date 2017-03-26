@@ -160,7 +160,6 @@ OVPN_DNS=1
 OVPN_DEVICE="tun"
 OVPN_DEVICEN=0
 OVPN_KEEPALIVE="10 60"
-OVPN_DNS_SERVERS=()
 TMP_DNS_SERVERS=()
 OVPN_TLS_CIPHER=''
 OVPN_CIPHER=''
@@ -259,9 +258,6 @@ done
 # Create ccd directory for static routes
 [ ! -d "${OPENVPN:-}/ccd" ] && mkdir -p ${OPENVPN:-}/ccd
 
-# if dns servers were not defined with -n, use google nameservers
-[ ${#TMP_DNS_SERVERS[@]} -gt 0 ] && OVPN_DNS_SERVERS=("${TMP_DNS_SERVERS[@]}")
-
 # Server name is in the form "udp://vpn.example.com:1194"
 if [[ "${OVPN_SERVER_URL:-}" =~ ^((udp|tcp|udp6|tcp6)://)?([0-9a-zA-Z\.\-]+)(:([0-9]+))?$ ]]; then
     OVPN_PROTO=${BASH_REMATCH[2]};
@@ -356,10 +352,6 @@ EOF
 [ "$OVPN_COMP_LZO" == "1" ] && echo "comp-lzo" >> "$conf"
 
 [ -n "${OVPN_FRAGMENT:-}" ] && echo "fragment $OVPN_FRAGMENT" >> "$conf"
-
-[ "$OVPN_DNS" == "1" ] && for i in "${OVPN_DNS_SERVERS[@]}"; do
-  process_push_config "dhcp-option DNS $i"
-done
 
 # Append route commands
 echo -e "\n### Route Configurations Below" >> "$conf"
