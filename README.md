@@ -12,7 +12,9 @@ This docker is creating a VPN network between Docker For Mac containers and the 
         docker run -v ovpn-data:/etc/openvpn --rm luman75/docker-mac-openvpn:3.3.0 ovpn_genconfig -u udp://localhost
 
 * Create CA 
+
 You will be asked for password to CA please set something longer then 4 characters and remember it for the next commands
+
         docker run -v ovpn-data:/etc/openvpn --rm -it luman75/docker-mac-openvpn:3.3.0 ovpn_initpki
 
 
