@@ -1,6 +1,7 @@
-# OpenVPN for Docker for Mac
+# Customized OpenVPN for Docker for Mac
 
 OpenVPN server in a Docker container complete with an EasyRSA PKI CA.
+This docker is creating a VPN network between Docker For Mac containers and the host mac itself. It allows you to communicate directly to services running as docker containers running on IPs 172.17.0.0/16.
 
 ## Quick Start
 
@@ -9,7 +10,11 @@ OpenVPN server in a Docker container complete with an EasyRSA PKI CA.
 
         docker volume create --name ovpn-data
         docker run -v ovpn-data:/etc/openvpn --rm luman75/docker-mac-openvpn:3.3.0 ovpn_genconfig -u udp://localhost
+
+* Create CA 
+You will be asked for password to CA please set something longer then 4 characters and remember it for the next commands
         docker run -v ovpn-data:/etc/openvpn --rm -it luman75/docker-mac-openvpn:3.3.0 ovpn_initpki
+
 
 * Start OpenVPN server process
 
@@ -22,6 +27,14 @@ OpenVPN server in a Docker container complete with an EasyRSA PKI CA.
 * Retrieve the client configuration with embedded certificates
 
         docker run -v ovpn-data:/etc/openvpn --rm luman75/docker-mac-openvpn:3.3.0 ovpn_getclient DockerForMac > DockerForMac.ovpn
+
+* Install OpenVPN Configuration
+You need to have Tunnelblink installed in your system [https://tunnelblick.net/downloads.html].
+Then just run command
+
+        open DockerForMac.ovpn
+
+After you that you will have configured Tunnelblink to communicate with your Docker for Mac environment. 
 
 
 ## How Does It Work?
