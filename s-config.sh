@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # we need to set dependency to compilare image.
-USERVICE_NAME="docker-mac-openvpn"
-DOCKER_IMAGE_NAME="docker-mac-openvpn"
+USERVICE_NAME="docker-openvpn-kube-for-mac"
+DOCKER_IMAGE_NAME="docker-openvpn-kube-for-mac"
 DOCKER_REPOSITORY="luman75"
 
 
