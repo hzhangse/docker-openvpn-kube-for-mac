@@ -3,7 +3,7 @@
 # we need to set dependency to compilare image.
 USERVICE_NAME="docker-openvpn-kube-for-mac"
 DOCKER_IMAGE_NAME="docker-openvpn-kube-for-mac"
-DOCKER_REPOSITORY="luman75"
+DOCKER_REPOSITORY="onedata"
 
 
 CURRENT_FOLDER="${PWD##*/}"
