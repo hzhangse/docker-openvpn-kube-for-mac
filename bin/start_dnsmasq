@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+/usr/sbin/dnsmasq -k -S /local/10.96.0.10
+

@@ -13,27 +13,27 @@ The deployment is straightforward just follow the steps below
 * Initialize the ovpn-data container that will hold the configuration files and certificates
 
         docker volume create --name ovpn-data
-        docker run -v ovpn-data:/etc/openvpn --rm onedata/docker-openvpn-kube-for-mac:1.2.1 ovpn_genconfig -u udp://localhost
+        docker run -v ovpn-data:/etc/openvpn --rm onedata/docker-openvpn-kube-for-mac:1.3.0 ovpn_genconfig -u udp://localhost
 
 * Create CA 
 
 You will be asked for password to CA, please set something longer than four characters and remember it for the next commands
 
-        docker run -v ovpn-data:/etc/openvpn --rm -it onedata/docker-openvpn-kube-for-mac:1.2.1 ovpn_initpki
+        docker run -v ovpn-data:/etc/openvpn --rm -it onedata/docker-openvpn-kube-for-mac:1.3.0 ovpn_initpki
 
 
 * Start OpenVPN server process
 
-        docker run --dns 8.8.8.8 --restart=always -v ovpn-data:/etc/openvpn --name docker-openvpn-kube-for-mac -d -p 1194:1194/udp --cap-add=NET_ADMIN onedata/docker-openvpn-kube-for-mac:1.2.1
+        docker run --dns 8.8.8.8 --restart=always -v ovpn-data:/etc/openvpn --name docker-openvpn-kube-for-mac -d -p 1194:1194/udp --cap-add=NET_ADMIN onedata/docker-openvpn-kube-for-mac:1.3.0
 
 
 * Generate a client certificate without a passphrase
 
-        docker run -v ovpn-data:/etc/openvpn --rm -it onedata/docker-openvpn-kube-for-mac:1.2.1 easyrsa build-client-full DockerForMac nopass
+        docker run -v ovpn-data:/etc/openvpn --rm -it onedata/docker-openvpn-kube-for-mac:1.3.0 easyrsa build-client-full DockerForMac nopass
 
 * Retrieve the client configuration with embedded certificates
 
-        docker run -v ovpn-data:/etc/openvpn --rm onedata/docker-openvpn-kube-for-mac:1.2.1 ovpn_getclient DockerForMac > ~/Downloads/DockerForMac.ovpn
+        docker run -v ovpn-data:/etc/openvpn --rm onedata/docker-openvpn-kube-for-mac:1.3.0 ovpn_getclient DockerForMac > ~/Downloads/DockerForMac.ovpn
 
 * Install OpenVPN Configuration
 You need to have Tunnelblink installed on your system [https://tunnelblick.net/downloads.html].
@@ -47,7 +47,7 @@ After you that you will have configured Tunnelblink to communicate with your Doc
 
 ## How Does It Work?
 
-Initialize the volume container using the `onedata/docker-openvpn-kube-for-mac:1.2.1` image with the
+Initialize the volume container using the `onedata/docker-openvpn-kube-for-mac:1.3.0` image with the
 included scripts to automatically generate:
 
 - Diffie-Hellman parameters
@@ -63,11 +63,11 @@ declares that directory as a volume. It means that you can start another
 container with the `-v` argument, and access the configuration.
 The volume also holds the PKI keys and certs so that it could be backed up.
 
-To generate a client certificate, `onedata/docker-openvpn-kube-for-mac:1.2.1` uses EasyRSA via the
+To generate a client certificate, `onedata/docker-openvpn-kube-for-mac:1.3.0` uses EasyRSA via the
 `easyrsa` command in the container's path.  The `EASYRSA_*` environmental
 variables place the PKI CA under `/etc/openvpn/pki`.
 
-Conveniently, `onedata/docker-openvpn-kube-for-mac:1.2.1` comes with a script called `ovpn_getclient`,
+Conveniently, `onedata/docker-openvpn-kube-for-mac:1.3.0` comes with a script called `ovpn_getclient`,
 which dumps an inline OpenVPN client configuration file.  This single file can
 then be given to a client for access to the VPN.
 
