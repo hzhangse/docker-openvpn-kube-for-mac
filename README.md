@@ -81,4 +81,12 @@ To enable Two Factor Authentication for clients (a.k.a. OTP) see [this document]
 * Push routing to `route 10.1.0.0 255.255.0.0` and `route 10.96.0.0 255.255.0.0` and `route 10.101.0.0 255.255.0.0` delivering routing to internal Kubernetes networks for pods and services.
 * There is no `redirect-gateway def1` generated in `xx.ovpn` so no default route
 * The main docker CMD is now supervisor which starts OpenVPN and dnsmasq
+# Differences to onedata/docker-openvpn-kube-for-mac
+* Push routing to `route 172.19.0.0 255.255.0.0` making routing to user-defined internal docker networks,
+* Start OpenVPN server process,need add --network parameter when start openVpn Server , for example:
+
+        docker run --dns 8.8.8.8 --restart=always -v ovpn-data:/etc/openvpn --name docker-openvpn-kube-for-mac -d -p 1194:1194/udp --cap-add=NET_ADMIN --network k3d-cluster onedata/docker-openvpn-kube-for-mac:1.3.0
+* add launch.json file for bash debugger when using vscode tool
+  
+     
 

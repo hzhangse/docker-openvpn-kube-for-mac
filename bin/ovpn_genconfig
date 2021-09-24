@@ -340,12 +340,16 @@ group nogroup
 
 # Routing to local ips under docker for mac
 push "route 172.17.0.0 255.255.0.0"
+push "route 172.19.0.0 255.255.0.0"
 push "route 10.1.0.0 255.255.0.0"
 push "route 10.96.0.0 255.255.0.0"
 push "route 10.101.0.0 255.255.0.0"
 push "dhcp-option DNS 192.168.255.1"
 
 EOF
+
+  
+
 
 
 [ -n "$OVPN_TLS_CIPHER" ] && echo "tls-cipher $OVPN_TLS_CIPHER" >> "$conf"
